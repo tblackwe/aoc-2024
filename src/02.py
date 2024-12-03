@@ -32,7 +32,7 @@ for report in reports:
     if check_report(report):
         safe_count += 1     
 
-print(f"Day 1 Part 1: {safe_count}")
+print(f"Day 2 Part 1: {safe_count}")
 
 # Part 2
 safe_count = 0
@@ -48,4 +48,4 @@ for report in reports:
                  safe_count += 1
                  break
 
-print(f"Day 1 Part 2: {safe_count}")
+print(f"Day 2 Part 2: {safe_count}")
