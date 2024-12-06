@@ -35,3 +35,12 @@ def get_input(day):
 
     with open(path, "r") as f:
         return f.read()
+
+def load_sample(day):
+    path = f"inputs/{day:02d}_sample"
+    if not exists(path):
+        with open(path, "w") as f:
+            f.write()
+        raise RuntimeError(f"Copy the sample into {path}")
+    with open(path, "r") as f:
+        return f.read()
