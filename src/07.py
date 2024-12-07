@@ -46,29 +46,20 @@ def arrange_input(input):
     return calibrations
 
 
-# Part 1
-def p1_solution(input):
+def solution(input, isPart2):
     calibrations = arrange_input(input)
     result = 0
     for calibration in calibrations:
-        if calibration.valid(isPart2 = False):
+        if calibration.valid(isPart2):
             result += calibration.result
     return result
 
+# Part 1
 
-print(f"Day 7 Test 1: {p1_solution(test_data)}")
-print(f"Day 7 Part 1: {p1_solution(input_str)}")
+print(f"Day 7 Test 1: {solution(test_data, isPart2=False)}")
+print(f"Day 7 Part 1: {solution(input_str, isPart2=False)}")
 
 # Part 2
 
-
-def p2_solution(input):
-    calibrations = arrange_input(input)
-    result = 0
-    for calibration in calibrations:
-        if calibration.valid(isPart2 = True):
-            result += calibration.result
-    return result
-
-print(f"Day 7 Test 2: {p2_solution(test_data)}")
-print(f"Day 7 Part 2: {p2_solution(input_str)}")
+print(f"Day 7 Test 2: {solution(test_data, isPart2=True)}")
+print(f"Day 7 Part 2: {solution(input_str, isPart2=True)}")
