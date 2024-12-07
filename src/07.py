@@ -51,7 +51,7 @@ def p1_solution(input):
     calibrations = arrange_input(input)
     result = 0
     for calibration in calibrations:
-        if calibration.valid(False):
+        if calibration.valid(isPart2 = False):
             result += calibration.result
     return result
 
@@ -66,7 +66,7 @@ def p2_solution(input):
     calibrations = arrange_input(input)
     result = 0
     for calibration in calibrations:
-        if calibration.valid(True):
+        if calibration.valid(isPart2 = True):
             result += calibration.result
     return result
 
