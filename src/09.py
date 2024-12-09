@@ -48,7 +48,6 @@ def solution_1(input):
 def solution_2(input):
     working_list = arrange_input(input)
     working_string = "".join(str(x) for x in working_list)
-
     while working_list:
         # remove trailing 'free space' leftover from previous loop
         if working_list[-1] == '.':
@@ -62,7 +61,7 @@ def solution_2(input):
         file = [working_list.pop()]
         while working_list[-1] == file[0]:
             file.append(working_list.pop()) 
-        file_string = "".join(str(x) for x in file) #stringify for easy string replacement
+        file_string = "".join(str(x) for x in file) #stringify for easy string replacement TODO FIX ME TO NOT USE STRINGS
         
         # build a string of `.` same length as file
         to_search = [] 
@@ -74,7 +73,7 @@ def solution_2(input):
         file_start_index = len(working_list) 
         free_space_index = working_string.find(to_search)
 
-        # if there is enough freespace before the file, move it
+        # if there is enough freespace before the file, move it 
         if free_space_index != -1 and free_space_index < file_start_index:
             working_string = working_string.replace(file_string, to_search, 1)
             working_string = working_string.replace(to_search, file_string, 1)
@@ -92,4 +91,4 @@ print(f"Day 9 Part 1: {solution_1(input_str)}")
 # Part 2
 
 print(f"Day 9 Test 2: {solution_2(test_data)}")  # Correct answer
-print(f"Day 9 Test 2: {solution_2(input_str)}")  # Wrong answer
+# print(f"Day 9 Test 2: {solution_2(input_str)}")  # Wrong answer
