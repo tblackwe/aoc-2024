@@ -46,8 +46,10 @@ def solution_1(input):
 
 
 def solution_2(input):
-    working_list = arrange_input(input)
-    working_string = "".join(str(x) for x in working_list)
+    filesystem = arrange_input(input)
+    working_list = filesystem.copy()
+    free_space_tracker = "".join(["X" if isinstance(item, (int)) else item for item in filesystem])
+    # print(filesystem)
     while working_list:
         # remove trailing 'free space' leftover from previous loop
         if working_list[-1] == '.':
@@ -61,25 +63,27 @@ def solution_2(input):
         file = [working_list.pop()]
         while working_list[-1] == file[0]:
             file.append(working_list.pop()) 
-        file_string = "".join(str(x) for x in file) #stringify for easy string replacement TODO FIX ME TO NOT USE STRINGS
+        file_string = "".join('X' for x in file)
         
         # build a string of `.` same length as file
         to_search = [] 
-        for _ in range(len(file_string)):
+        for _ in range(len(file)):
             to_search.append('.')
         to_search = "".join(to_search)
 
         # figure out the indices of everything
         file_start_index = len(working_list) 
-        free_space_index = working_string.find(to_search)
+        free_space_index = free_space_tracker.find(to_search)
 
         # if there is enough freespace before the file, move it 
         if free_space_index != -1 and free_space_index < file_start_index:
-            working_string = working_string.replace(file_string, to_search, 1)
-            working_string = working_string.replace(to_search, file_string, 1)
+            free_space_tracker = free_space_tracker.replace(to_search, file_string, 1)
+            for idx,x in enumerate(file):
+                filesystem[free_space_index+idx] = x
+                filesystem[file_start_index+idx] = '.'
 
     checksum = 0
-    for idx, file in enumerate(working_string):
+    for idx, file in enumerate(filesystem):
         if file != '.':
             checksum += idx * int(file)
     return checksum
@@ -91,4 +95,4 @@ print(f"Day 9 Part 1: {solution_1(input_str)}")
 # Part 2
 
 print(f"Day 9 Test 2: {solution_2(test_data)}")  # Correct answer
-# print(f"Day 9 Test 2: {solution_2(input_str)}")  # Wrong answer
+print(f"Day 9 Test 2: {solution_2(input_str)}")  # Wrong answer
