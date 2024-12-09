@@ -38,10 +38,11 @@ def solution_1(input):
             element = working_list.pop()
         if element != '.':
             final_result.append(element)
-    answer = 0
+            
+    checksum = 0
     for idx, file in enumerate(final_result):
-        answer += idx * int(file)
-    return answer
+        checksum += idx * int(file)
+    return checksum
 
 
 def solution_2(input):
@@ -49,29 +50,40 @@ def solution_2(input):
     working_string = "".join(str(x) for x in working_list)
 
     while working_list:
+        # remove trailing 'free space' leftover from previous loop
         if working_list[-1] == '.':
-            working_list.pop() # remove trailing 'free space'
+            working_list.pop() 
+        
+        # if there is only 1 thing left in the working list, break the loop
         if all(i == working_list[0] for i in working_list):
-            break # down to the 1 file left
+            break
+
+        # pop off the highest file number
         file = [working_list.pop()]
         while working_list[-1] == file[0]:
-            file.append(working_list.pop())
-        file_string = "".join(str(x) for x in file)
-        to_search = []
+            file.append(working_list.pop()) 
+        file_string = "".join(str(x) for x in file) #stringify for easy string replacement
+        
+        # build a string of `.` same length as file
+        to_search = [] 
         for _ in range(len(file_string)):
             to_search.append('.')
         to_search = "".join(to_search)
-        file_start_index = len(working_list)
+
+        # figure out the indices of everything
+        file_start_index = len(working_list) 
         free_space_index = working_string.find(to_search)
+
+        # if there is enough freespace before the file, move it
         if free_space_index != -1 and free_space_index < file_start_index:
             working_string = working_string.replace(file_string, to_search, 1)
             working_string = working_string.replace(to_search, file_string, 1)
 
-    answer = 0
+    checksum = 0
     for idx, file in enumerate(working_string):
         if file != '.':
-            answer += idx * int(file)
-    return answer
+            checksum += idx * int(file)
+    return checksum
 
 
 print(f"Day 9 Test 1: {solution_1(test_data)}")
