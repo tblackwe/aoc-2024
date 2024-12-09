@@ -38,7 +38,7 @@ def solution_1(input):
             element = working_list.pop()
         if element != '.':
             final_result.append(element)
-            
+
     checksum = 0
     for idx, file in enumerate(final_result):
         checksum += idx * int(file)
@@ -48,13 +48,14 @@ def solution_1(input):
 def solution_2(input):
     filesystem = arrange_input(input)
     working_list = filesystem.copy()
-    free_space_tracker = "".join(["X" if isinstance(item, (int)) else item for item in filesystem])
+    free_space_tracker = "".join(
+        ["X" if isinstance(item, (int)) else item for item in filesystem])
     # print(filesystem)
     while working_list:
         # remove trailing 'free space' leftover from previous loop
         if working_list[-1] == '.':
-            working_list.pop() 
-        
+            working_list.pop()
+
         # if there is only 1 thing left in the working list, break the loop
         if all(i == working_list[0] for i in working_list):
             break
@@ -62,23 +63,24 @@ def solution_2(input):
         # pop off the highest file number
         file = [working_list.pop()]
         while working_list[-1] == file[0]:
-            file.append(working_list.pop()) 
+            file.append(working_list.pop())
         file_string = "".join('X' for x in file)
-        
+
         # build a string of `.` same length as file
-        to_search = [] 
+        to_search = []
         for _ in range(len(file)):
             to_search.append('.')
         to_search = "".join(to_search)
 
         # figure out the indices of everything
-        file_start_index = len(working_list) 
+        file_start_index = len(working_list)
         free_space_index = free_space_tracker.find(to_search)
 
-        # if there is enough freespace before the file, move it 
+        # if there is enough freespace before the file, move it
         if free_space_index != -1 and free_space_index < file_start_index:
-            free_space_tracker = free_space_tracker.replace(to_search, file_string, 1)
-            for idx,x in enumerate(file):
+            free_space_tracker = free_space_tracker.replace(
+                to_search, file_string, 1)
+            for idx, x in enumerate(file):
                 filesystem[free_space_index+idx] = x
                 filesystem[file_start_index+idx] = '.'
 
